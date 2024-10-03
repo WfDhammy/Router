@@ -1,10 +1,19 @@
-import React from 'react'
+import React, {useState, useContext} from 'react';
+import {Youtube} from '../Youtube';
 
 const Form = () => {
+  let {setSearch} = useContext(Youtube);
+  const [film, setFilm] = useState();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearch(film);
+    setFilm('');
+  }
+  
   return (
    <div className='bg-black h-[100px]'>
      
-        <form action="">
+        <form action="" onSubmit={handleSubmit} >
             <div className='flex justify-between items-center px-[100px]'>
                 <div> <h1 className='text-white text-[29px]'>n <span className='text-[red] font-bold text-[40px]'>Flix</span></h1></div>
 
@@ -13,11 +22,13 @@ const Form = () => {
 
                 <div>
                     <nav>
-                    <input type="text" placeholder='search' />
+                    <input type="text" placeholder='search' value={film} onChange={(e) => setFilm(e.target.value) } />
                     </nav>
 
                 </div>
                 </div>
+
+                <input type="Submit" />
         </form>
     
 
