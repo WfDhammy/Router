@@ -8,12 +8,12 @@ const YoutubeApi = ({children}) => {
 
     const [movie, setMovie] = useState([]);
     const [selected, setSelected] = useState([]);
-    const [search, setSearch] = useState('')
+    const [mysearch, setMySearch] = useState('')
 
 
 
   return (
-    <Youtube.Provider value={{movie, setMovie, selected, setSelected, search, setSearch}}>
+    <Youtube.Provider value={{movie, setMovie, selected, setSelected, mysearch, setMySearch}}>
         {children}
     </Youtube.Provider>
   )

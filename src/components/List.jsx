@@ -6,34 +6,36 @@ import Item from './Item';
 
 
 const List = () => {
-  let ourApi  = JSON.parse(localStorage.getItem('apiclass'));
-  let {movie, setMovie, setSelected, search, setSearch} = useContext(Youtube);
-  let url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${search}&key=AIzaSyDKEcbGRQjrqFoR4T7b-03_BAW6yK5j4Qs`
-
+  
+  let {movie, setMovie, setSelected, mysearch, setMySearch} = useContext(Youtube);
+  
   useEffect(() => {
     const getMyApi = async () => {
-      if(ourApi){
-        setMovie(ourApi);
-        console.log(movie);
+      const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${mysearch}&key=AIzaSyDKEcbGRQjrqFoR4T7b-03_BAW6yK5j4Qs`
 
-      } else{
-      const response = await fetch(url);
-      const data = await response.json();
-      setMovie(data.items);
-      localStorage.setItem('apiclass', JSON.stringify(data.items));
-      setMovie(data.items);
-      setSelected(data.items)
-      }
-      
-      
-      // console.log(movie.items)
-    }
-    getMyApi()
-  }, [setMovie])
+      try{
+        const response = await fetch(url);
 
+        if (!response.ok) {
+          throw new Error('Network response was noy ok'); 
+        }
+        const data = await response.json();
+        localStorage.setItem('apiclass', JSON.stringify(data.items));
+          setMovie(data.items);
+          setSelected(data.items);
+      
+      } catch (error) {
+        console.error('Fetch error:', error);
+      };
+     
+      } 
+      getMyApi();
+
+    },[mysearch, setMovie, setSelected]);
+    
   useEffect(()=>{
     console.log(movie)
-  },[movie])
+  }, [movie]);
 
  
   return (

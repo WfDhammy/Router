@@ -2,11 +2,11 @@ import React, {useState, useContext} from 'react';
 import {Youtube} from '../Youtube';
 
 const Form = () => {
-  let {setSearch} = useContext(Youtube);
+  let {setMySearch} = useContext(Youtube);
   const [film, setFilm] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearch(film);
+    setMySearch(film);
     setFilm('');
   }
   
